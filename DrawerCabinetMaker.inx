@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Drawer Cabinet Maker</_name>
+  <id>eu.twot.render.drawercabinetmaker</id>
+
+  <dependency type="executable" location="extensions">DrawerCabinetMaker.py</dependency>
+  <dependency type="executable" location="extensions">simpletransform.py</dependency>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+
+  <param name="unit" _gui-text="Unit" type="optiongroup" appearance="minimal">
+    <option value="mm">mm</option>
+    <option value="cm">cm</option>
+    <option value="in">in</option>
+  </param>
+
+  <param name="name" type="description" appearance="header">Drawer size</param>
+  <param name="drawer_length" type="float" precision="3" min="0.0" max="10000.0" _gui-text="Depth">1.0</param>
+  <param name="drawer_width" type="float" precision="3"  min="0.0" max="10000.0" _gui-text="Width">1.0</param>
+  <param name="drawer_heights" type="string" _gui-text="Height">1.0</param>
+  
+  <param name="name" type="description" appearance="header">Cabinet Options</param>
+  
+  <param name="drawer_count" type="int"  min="1" max="10000" _gui-text="Number of Drawers">1</param>
+  <param name="drawer_clearance" type="float" precision="3" min="0.0" max="10000.0" _gui-text="Drawer Clearance">1.0</param>
+
+
+<param name="tab_width" type="float" precision="2" min="0.0" max="10000.0" _gui-text="Minimum/Prefered Tab Width">1.0</param> 
+  <param name="equal" type="optiongroup" _gui-text="Tab Width">
+    <_option value="0">Fixed</_option>
+    <_option value="1">Proportional</_option>
+  </param>
+ <param name="name" type="description" appearance="header">Material/Cutting Options</param>
+  <param name="thickness" type="float" precision="2" min="0.0" max="10000.0" _gui-text="Material Thickness">1.0</param>
+  <param name="kerf" type="float" precision="3"  min="0.0" max="10000.0" _gui-text="Kerf (cut width)">0.1</param>
+  <param name="clearance" type="float" precision="3"  min="0.0" max="10000.0" _gui-text="Clearance">0.01</param>
+	
+  <param name="layout" _gui-text="Layout/Style" type="optiongroup" appearance="minimal">
+    <option value="1">Diagramatic</option>
+    <option value="2">Alternate Diagramatic</option>
+    <option value="3">Inline1</option>
+    <option value="4">Inline2</option>
+    <option value="5">Inline3</option>
+    <option value="6">Inline4</option>
+  </param>
+
+  <param name="spacing" type="float" precision="2" min="0.0" max="10000.0" _gui-text="Space Between Parts">1.0</param> 
+  
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu _name="Laser Tools" />
+    </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">DrawerCabinetMaker.py</command>
+  </script>
+</inkscape-extension>
