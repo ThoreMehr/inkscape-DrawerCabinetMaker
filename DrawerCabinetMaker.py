@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 '''
-Generates Inkscape SVG file containing box components needed to 
-laser cut a tabbed construction box taking kerf and clearance into account
+Generates Inkscape SVG file containing cabinet components needed to 
+laser cut a drawer cabinet taking kerf and clearance into account
 
-Copyright (C) 2011 elliot white   elliot@twot.eu
+Copyright (C) 2016 Thore Mehr thore.mehr@gmail.com
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,13 +22,25 @@ __version__ = "0.8" ### please report bugs, suggestions etc to bugs@twot.eu ###
 import sys,inkex,simplestyle,gettext
 _ = gettext.gettext
 
-def drawS(XYstring):         # Draw lines from a list
+def drawS(XYstring,color):         # Draw lines from a list
   name='part'
-  style = { 'stroke': '#000000', 'fill': 'none' }
+  style = { 'stroke': color, 'fill': 'none' }
   drw = {'style':simplestyle.formatStyle(style),inkex.addNS('label','inkscape'):name,'d':XYstring}
   inkex.etree.SubElement(parent, inkex.addNS('path','svg'), drw )
   return
-
+def groupdraw(XYstrings,colors)  :
+  if len(XYstrings)==1:
+    drawS(XYstrings[0],colors[0])
+    return
+  grp_name = 'Group'
+  grp_attribs = {inkex.addNS('label','inkscape'):grp_name}
+  grp = inkex.etree.SubElement(parent, 'g', grp_attribs)#the group to put everything in
+  name='part'
+  for i in range(len(XYstrings)):
+    style = { 'stroke': colors[i], 'fill': 'none' }
+    drw = {'style':simplestyle.formatStyle(style),inkex.addNS('label','inkscape'):name+str(i),'d':XYstrings[i]}
+    inkex.etree.SubElement(grp, inkex.addNS('path','svg'), drw )
+  return
 def hole((root_x,root_y),(width,height)):
   return 'M '+str(root_x)+','+str(root_y)+' '+'L '+str(root_x)+','+str(root_y+height)+' '+'L '+str(root_x+width)+','+str(root_y+height)+' '+'L '+str(root_x+width)+','+str(root_y)+' '+'L '+str(root_x)+','+str(root_y)+' '
 
@@ -303,9 +315,10 @@ class DrawerCabinetMaker(inkex.Effect):
         s+=side((x_root,y_root+y_size),(d,-c),(d,a),0,y_size,(0,-1),d)
       else:
         s+=side((x_root,y_root+y_size),(d,-c),(d,a),-thickness if d else thickness,y_size,(0,-1),d)
+      s=[s]
       if piece[6]:  
-        s+=holes((x_root,y_root),(drawer_width,drawer_heights,drawer_depth),y_size,drawer_count)
-      drawS(s)
+        s+=[holes((x_root,y_root),(drawer_width,drawer_heights,drawer_depth),y_size,drawer_count)]
+      groupdraw(s,['#000000','#FF0000'])
 
 # Create effect instance and apply it.
 effect = DrawerCabinetMaker()
