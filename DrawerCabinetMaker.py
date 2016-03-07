@@ -165,6 +165,7 @@ class DrawerCabinetMaker(inkex.Effect):
         dest='layout',default=1,help='Layout/Style')
       self.OptionParser.add_option('--spacing',action='store',type='float',
         dest='spacing',default=25,help='Part Spacing')
+
   
   def effect(self):
     global parent,nomTab,equalTabs,thickness,kerf,correction
@@ -289,7 +290,14 @@ class DrawerCabinetMaker(inkex.Effect):
         [spacing,-2*thickness+4*spacing+cabinet_width+3*cabinet_depth,cabinet_width,cabinet_depth,0b1010,2,0]]
         for i in range(2,drawer_count+1):
           pieces+=[[spacing,-2*thickness+4*spacing+cabinet_width+(i+2)*cabinet_depth,cabinet_width,cabinet_depth,0b1111,2,0]]#tenner
-            
+    if layout==3:
+      pieces=[[spacing,spacing,cabinet_height,cabinet_width,0b0000,4,1],#backplate
+        [spacing,2*spacing+cabinet_width,cabinet_height,cabinet_depth,0b1111,2,1],#top/bottom
+        [2*spacing+cabinet_height,2*spacing+cabinet_width,cabinet_height,cabinet_depth,0b1111,2,1],#top/bottom
+        [2*spacing+cabinet_height,spacing,cabinet_depth,cabinet_width,0b0101,1,0],#sides
+        [3*spacing+cabinet_height+cabinet_depth-thickness,spacing,cabinet_depth,cabinet_width,0b0101,1,0]]
+      for i in range(2,drawer_count+1):
+        pieces+=[[(i+2)*spacing+cabinet_height+i*cabinet_depth-i*thickness,spacing,cabinet_depth,cabinet_width,0b1111,1,0]]#tenner
     for piece in pieces: # generate and draw each piece of the box
       
       x_root=piece[0]
