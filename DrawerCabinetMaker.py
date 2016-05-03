@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-__version__ = "0.8" ### please report bugs, suggestions etc to bugs@twot.eu ###
+__version__ = "0.8" ### please report bugs, suggestions etc to thore.mehr@gmail.com ###
 
 import sys,inkex,simplestyle,gettext
 _ = gettext.gettext
