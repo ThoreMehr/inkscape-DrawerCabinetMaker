@@ -69,7 +69,11 @@ def holes((root_x,root_y),(drawer_width,drawer_heights,drawer_depth),length,draw
   s=""
   for j in range(drawer_count-1):
     for i in range(int(tabs)):
+<<<<<<< HEAD
       s+=hole((root_x+(j+1)*thickness+sum(drawer_heights[:j+1]),root_y+i*(gapWidth+tabWidth)+gapWidth),(thickness-2*kerf+2*clearance,tabWidth-2*kerf+2*clearance))
+=======
+      s+=hole((root_x+(j+1)*thickness+sum(drawer_heights[:j+1]),root_y+i*(gapWidth+tabWidth)+gapWidth),(thickness-2*kerf,tabWidth-2*kerf))
+>>>>>>> origin/master
   return s
   
   
@@ -165,10 +169,16 @@ class DrawerCabinetMaker(inkex.Effect):
         dest='layout',default=1,help='Layout/Style')
       self.OptionParser.add_option('--spacing',action='store',type='float',
         dest='spacing',default=25,help='Part Spacing')
+<<<<<<< HEAD
 
   
   def effect(self):
     global parent,nomTab,equalTabs,thickness,kerf,correction,clearance
+=======
+  
+  def effect(self):
+    global parent,nomTab,equalTabs,thickness,kerf,correction
+>>>>>>> origin/master
     
         # Get access to main SVG document element and get its dimensions.
     svg = self.document.getroot()
@@ -290,6 +300,7 @@ class DrawerCabinetMaker(inkex.Effect):
         [spacing,-2*thickness+4*spacing+cabinet_width+3*cabinet_depth,cabinet_width,cabinet_depth,0b1010,2,0]]
         for i in range(2,drawer_count+1):
           pieces+=[[spacing,-2*thickness+4*spacing+cabinet_width+(i+2)*cabinet_depth,cabinet_width,cabinet_depth,0b1111,2,0]]#tenner
+<<<<<<< HEAD
     if layout==3:
       pieces=[[spacing,spacing,cabinet_height,cabinet_width,0b0000,4,1],#backplate
         [spacing,2*spacing+cabinet_width,cabinet_height,cabinet_depth,0b1111,2,1],#top/bottom
@@ -298,6 +309,9 @@ class DrawerCabinetMaker(inkex.Effect):
         [3*spacing+cabinet_height+cabinet_depth-thickness,spacing,cabinet_depth,cabinet_width,0b0101,1,0]]
       for i in range(2,drawer_count+1):
         pieces+=[[(i+2)*spacing+cabinet_height+i*cabinet_depth-i*thickness,spacing,cabinet_depth,cabinet_width,0b1111,1,0]]#tenner
+=======
+            
+>>>>>>> origin/master
     for piece in pieces: # generate and draw each piece of the box
       
       x_root=piece[0]
