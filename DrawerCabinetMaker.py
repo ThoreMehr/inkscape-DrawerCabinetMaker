@@ -172,10 +172,6 @@ class DrawerCabinetMaker(inkex.Effect):
   def effect(self):
     global parent,nomTab,equalTabs,thickness,kerf,correction,clearance
 
-  
-  def effect(self):
-    global parent,nomTab,equalTabs,thickness,kerf,correction
-
     
         # Get access to main SVG document element and get its dimensions.
     svg = self.document.getroot()
